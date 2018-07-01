@@ -1,3 +1,3 @@
 # LEMP
 Installation
-wget https://git.io/dockerlemp -O run.sh && bash run.sh
+wget https://git.io/dockerlemp -O install.sh && bash install.sh
