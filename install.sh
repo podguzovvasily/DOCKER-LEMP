@@ -6,7 +6,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 mkdir LEMP
 cd LEMP
 mkdir www www/hello.dev mysql logs hosts images images/php && echo "<?php phpinfo();" > www/hello.dev/index.php && touch images/php/php.ini && touch docker-compose.yml && echo -e "# Для начала указываем исходный образ, он будет использован как основа 
-FROM php:7.0-fpm
+FROM php:7.2-fpm
 # RUN выполняет идущую за ней команду в контексте нашего образа.
 # В данном случае мы установим некоторые зависимости и модули PHP.
 # Для установки модулей используем команду docker-php-ext-install.
