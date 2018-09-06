@@ -30,7 +30,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 ADD php.ini /usr/local/etc/php/conf.d/40-custom.ini
 \n
 # Указываем рабочую директорию для PHP
-WORKDIR /var/www
+WORKDIR /var/www/html
 \n
 # Запускаем контейнер
 # Из документации: The main purpose of a CMD is to provide defaults for an executing container. These defaults can include an executable,
@@ -50,7 +50,7 @@ services:
         # монтируем директории, слева директории на основной машине, справа - куда они монтируются в контейнере
         volumes:
             - ./hosts:/etc/nginx/conf.d
-            - ./www:/var/www
+            - ./www:/var/www/html
             - ./logs:/var/log/nginx\n
         # nginx должен общаться с php контейнером
         links:\n
@@ -63,7 +63,7 @@ services:
             - mysql
         # монтируем директорию с проектами
         volumes:
-            - ./www:/var/www
+            - ./www:/var/www/html
     mysql:
         image: mariadb
         ports:
@@ -92,7 +92,7 @@ echo -e "server {
     server_name hello.dev;
     error_log  /var/log/nginx/error.log;
     access_log /var/log/nginx/access.log;
-    root /var/www/hello.dev;
+    root /var/www/html/hello.dev;
     location ~ \.php$ {
         try_files "'$uri'" =404;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
