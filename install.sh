@@ -57,7 +57,7 @@ services:
             - php
     php:
         # у нас свой образ для PHP, указываем путь к нему и говорим что его надо собрать
-        build: ./images/php
+        image: php:7.2-fpm
         # этот образ будет общаться с mysql
         links:\n
             - mysql
