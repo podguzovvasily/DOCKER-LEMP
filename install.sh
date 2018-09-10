@@ -43,6 +43,13 @@ services:
         # задаем пароль для root пользователя
         environment:
             MYSQL_ROOT_PASSWORD: secret
+            
+    certbot:
+        image: certbot/certbot
+        volumes:
+         /etc/letsencrypt_docker:/etc/letsencrypt
+        command: ["renew"]
+        
     pma:
       # используем последний стабильный образ phpmyadmin
         image: phpmyadmin/phpmyadmin
