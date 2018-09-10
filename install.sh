@@ -47,7 +47,7 @@ services:
     certbot:
         image: certbot/certbot
         volumes:
-         /etc/letsencrypt_docker:/etc/letsencrypt
+            - ./etc/letsencrypt_docker:/etc/letsencrypt
         command: ["renew"]
         
     pma:
