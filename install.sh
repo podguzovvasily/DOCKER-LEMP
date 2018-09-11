@@ -46,8 +46,11 @@ services:
             
     certbot:
         image: certbot/certbot
+        links:\n
+            - nginx
         volumes:
             - ./etc/letsencrypt_docker:/etc/letsencrypt
+            - ./www:/var/www/html
         command: ["renew"]
         
     pma:
