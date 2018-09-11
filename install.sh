@@ -50,8 +50,9 @@ services:
             - nginx
         volumes:
             - ./etc/letsencrypt_docker:/etc/letsencrypt
-            - ./www:/var/www/html
+            - ./www/:/var/www/html/hello.dev
         command: ["renew"]
+        # Request to certificate docker-compose run certbot certonly --webroot -w /var/www/html/hello.dev -d basil-student.ru -d www.basil-student.ru
         
     pma:
       # используем последний стабильный образ phpmyadmin
