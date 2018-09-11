@@ -22,9 +22,11 @@ services:
             - ./hosts:/etc/nginx/conf.d
             - ./www:/var/www/html
             - ./logs:/var/log/nginx\n
+            - ./etc/letsencrypt_docker/live/basil-student.ru:certs
         # nginx должен общаться с php контейнером
         links:\n
             - php
+            - certbot
     php:
         # у нас свой образ для PHP
         image: php:7.2-fpm
