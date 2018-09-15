@@ -22,7 +22,7 @@ services:
             - ./hosts:/etc/nginx/conf.d
             - ./www:/var/www/html
             - ./logs:/var/log/nginx\n
-            - ./etc/letsencrypt_docker/live/basil-student.ru:certs
+            - ./etc/letsencrypt_docker/live/basil-student.ru:/etc/ssl
         # nginx должен общаться с php контейнером
         links:\n
             - php
