@@ -3,9 +3,11 @@ sudo apt install docker.io -y
 sudo systemctl start docker
 sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
+echo -n "Enter your domain name: "
+read domain
 mkdir LEMP
 cd LEMP
-mkdir www www/hello.dev mysql logs hosts images images/php && echo "<?php phpinfo();" > www/hello.dev/index.php && touch images/php/php.ini && touch docker-compose.yml
+mkdir www www/$domain mysql logs hosts images images/php && echo "<?php phpinfo();" > www/$domain/index.php && touch images/php/php.ini && touch docker-compose.yml
 
 echo -e "# Версия docker-compose
 version: '2'
@@ -22,7 +24,7 @@ services:
             - ./hosts:/etc/nginx/conf.d
             - ./www:/var/www/html
             - ./logs:/var/log/nginx\n
-            - ./etc/letsencrypt_docker/live/basil-student.ru:/etc/ssl
+            - ./etc/letsencrypt_docker/live/$domain:/etc/ssl
         # nginx должен общаться с php контейнером
         links:\n
             - php
@@ -52,9 +54,9 @@ services:
             - nginx
         volumes:
             - ./etc/letsencrypt_docker:/etc/letsencrypt
-            - ./www/:/var/www/html/hello.dev
+            - ./www/:/var/www/html/$domain
         command: ["renew"]
-        # Request to certificate docker-compose run certbot certonly --webroot -w /var/www/html/hello.dev -d basil-student.ru -d www.basil-student.ru
+        # Request to certificate docker-compose run certbot certonly --webroot -w /var/www/html/$domain -d $domain -d www.$domain
         
     pma:
       # используем последний стабильный образ phpmyadmin
@@ -72,10 +74,10 @@ services:
 
 echo -e "server {
     index index.php;
-    server_name hello.dev;
+    server_name $domain;
     error_log  /var/log/nginx/error.log;
     access_log /var/log/nginx/access.log;
-    root /var/www/html/hello.dev;
+    root /var/www/html/$domain;
     location ~ \.php$ {
         try_files "'$uri'" =404;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
@@ -85,6 +87,6 @@ echo -e "server {
         fastcgi_param SCRIPT_FILENAME "'$document_root$fastcgi_script_name;'"
         fastcgi_param PATH_INFO "'$fastcgi_path_info'";
     "'}'"
-}" >hosts/hello-dev.conf
+}" >hosts/$domain.conf
 
 sudo docker-compose up -d
