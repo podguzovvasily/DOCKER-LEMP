@@ -53,7 +53,7 @@ services:
             - nginx
         volumes:
             - ./etc/letsencrypt_docker:/etc/letsencrypt
-            - ./www/:/var/www/html/$domain
+            - ./www:/var/www/html
         command: ["renew"]
         # Request to certificate docker-compose run certbot certonly --webroot -w /var/www/html/$domain -d $domain -d www.$domain
         
