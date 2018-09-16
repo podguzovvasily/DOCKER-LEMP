@@ -28,7 +28,6 @@ services:
         # nginx должен общаться с php контейнером
         links:\n
             - php
-            - certbot
     php:
         # у нас свой образ для PHP
         image: php:7.2-fpm
