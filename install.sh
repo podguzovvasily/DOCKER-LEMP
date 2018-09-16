@@ -91,3 +91,4 @@ echo -e "server {
 sudo docker-compose up -d
 
 cd LEMP
+docker-compose run certbot certonly --webroot -w /var/www/html/$domain -d $domain -d www.$domain
