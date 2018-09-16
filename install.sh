@@ -89,3 +89,5 @@ echo -e "server {
 }" >hosts/$domain.conf
 
 sudo docker-compose up -d
+
+cd LEMP
