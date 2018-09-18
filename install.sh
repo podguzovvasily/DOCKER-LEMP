@@ -119,10 +119,11 @@ server {
 	ssl_certificate /etc/ssl/fullchain1.pem;
     	ssl_certificate_key /etc/ssl/privkey1.pem;
 	ssl_dhparam /etc/ssl/dh4096.pem;
-
+	ssl_trusted_certificate /etc/ssl/chain1.pem
 	ssl_session_cache shared:SSL:50m;
 	ssl_session_timeout 5m;
-
+	ssl_stapling on;
+	ssl_stapling_verify on;
 	ssl_protocols TLSv1.1 TLSv1.2;
   	ssl_ciphers 'EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA512:EECDH+ECDSA+SHA256:ECDH+AESGCM:ECDH+AES256:DH+AESGCM:DH+AES256:!aNULL:!eNULL:!LOW:!RC4:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS';
 	ssl_prefer_server_ciphers on;
