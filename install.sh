@@ -91,6 +91,7 @@ echo -e "server {
 sudo docker-compose up -d
 
 docker-compose run certbot certonly --webroot -w /var/www/html/$domain -d $domain -d www.$domain
+docker-compose run certbot certonly --webroot -w /var/www/html/$domain -d $domain -d www.$domain
 
 echo -e "server {
     index index.php;
