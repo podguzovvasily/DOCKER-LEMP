@@ -94,10 +94,10 @@ docker-compose run certbot certonly --webroot -w /var/www/html/$domain -d $domai
 
 echo -e "server {
     index index.php;
-    server_name hello.dev;
+    server_name $domain;
     error_log  /var/log/nginx/error.log;
     access_log /var/log/nginx/access.log;
-    root /var/www/html/hello.dev;
+    root /var/www/html/$domain;
     location ~ \.php$ {
         try_files "'$uri'" =404;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
@@ -113,7 +113,7 @@ server {
 	listen [::]:443 ssl http2 default_server;
 	listen 443 ssl http2 default_server;
 
-        server_name basil-student.ru
+        server_name $domain
 	listen 443 ssl http2;
 	#ssl on;
 	ssl_certificate /etc/ssl/fullchain1.pem;
@@ -124,10 +124,10 @@ server {
 	ssl_session_timeout 5m;
 
 	ssl_protocols TLSv1.1 TLSv1.2;
-  	ssl_ciphers 'EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA512:EECDH+ECDSA+SHA256:ECDH+AESGCM:ECDH+AES256:DH+AESGCM:DH+AES256:RSA+AESGCM:!aNULL:!eNULL:!LOW:!RC4:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS';
+  	ssl_ciphers 'EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA512:EECDH+ECDSA+SHA256:ECDH+AESGCM:ECDH+AES256:DH+AESGCM:DH+AES256:!aNULL:!eNULL:!LOW:!RC4:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS';
 	ssl_prefer_server_ciphers on;
-    "'add_header Strict-Transport-Security "max-age=31536000;";'"
-    "'add_header Content-Security-Policy-Report-Only "default-src https:; script-src https: 'unsafe-eval' 'unsafe-inline'; style-src https: 'unsafe-inline'; img-src https: data:; font-src https: data:; report-uri /csp-report";'"
+    	"'add_header Strict-Transport-Security "max-age=31536000;";'"
+    	"'add_header Content-Security-Policy-Report-Only "default-src https:; script-src https: 'unsafe-eval' 'unsafe-inline'; style-src https: 'unsafe-inline'; img-src https: data:; font-src https: data:; report-uri /csp-report";'"
 	
 index index.php;
     server_name basil-student.ru;
