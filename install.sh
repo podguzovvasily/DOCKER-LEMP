@@ -132,10 +132,10 @@ server {
     	"'add_header Content-Security-Policy-Report-Only "default-src https:; script-src https: 'unsafe-eval' 'unsafe-inline'; style-src https: 'unsafe-inline'; img-src https: data:; font-src https: data:; report-uri /csp-report";'"
 	
 index index.php;
-    server_name basil-student.ru;
+    server_name $domain;
     error_log  /var/log/nginx/error.log;
     access_log /var/log/nginx/access.log;
-    root /var/www/html/basil-student.ru;
+    root /var/www/html/$domain;
     location ~ \.php$ {
         try_files "'$uri'" =404;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
@@ -146,4 +146,4 @@ index index.php;
         fastcgi_param PATH_INFO "'$fastcgi_path_info'";
     }
 
-}" >basil-student.ru.conf
+}" >$domain.conf
