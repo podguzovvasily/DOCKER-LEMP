@@ -146,4 +146,4 @@ index index.php;
         fastcgi_param PATH_INFO "'$fastcgi_path_info'";
     }
 
-}" >$domain.conf
+}" >hosts/$domain.conf
