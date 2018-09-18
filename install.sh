@@ -22,6 +22,7 @@ services:
         # монтируем директории, слева директории на основной машине, справа - куда они монтируются в контейнере
         volumes:
             - ./hosts:/etc/nginx/conf.d
+	    - ./etc/nginx:/etc/nginx
             - ./www:/var/www/html
             - ./logs:/var/log/nginx\n
             - ./etc/letsencrypt_docker/live/$domain:/etc/ssl
