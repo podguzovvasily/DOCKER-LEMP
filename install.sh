@@ -29,7 +29,7 @@ services:
         links:\n
             - php
     php:
-        # у нас свой образ для PHP
+        # используем стабильный официальный образ для PHP
         image: php:7.2-fpm
         # этот образ будет общаться с mysql
         links:\n
@@ -43,7 +43,7 @@ services:
             - "'"'"3306:3306"'"'"
         volumes:
             - ./mysql:/var/lib/mysql
-        # задаем пароль для root пользователя
+         # задаем пароль secret для root пользователя
         environment:
             MYSQL_ROOT_PASSWORD: secret
             
