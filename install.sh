@@ -113,7 +113,7 @@ echo -e "server {
 server {
 	listen [::]:443 ssl http2 default_server;
 	listen 443 ssl http2 default_server;
-        server_name $domain
+        server_name $domain www.$domain
 	ssl_certificate /etc/ssl/fullchain1.pem;
     	ssl_certificate_key /etc/ssl/privkey1.pem;
 	ssl_dhparam /etc/ssl/dh4096.pem;
