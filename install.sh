@@ -109,7 +109,6 @@ echo -e "server {
         fastcgi_param PATH_INFO "'$fastcgi_path_info'";
     "'}'"
 }
-
 server {
 	listen [::]:443 ssl http2 default_server;
 	listen 443 ssl http2 default_server;
@@ -133,7 +132,6 @@ server {
     	location /__cspreporting__ {
     	access_log /var/log/nginx/report-uri-csp.log;
   	}
-
 	
 index index.php;
     server_name $domain;
@@ -149,5 +147,4 @@ index index.php;
         fastcgi_param SCRIPT_FILENAME "'$document_root$fastcgi_script_name;'"
         fastcgi_param PATH_INFO "'$fastcgi_path_info'";
     }
-
 }" >hosts/$domain.conf
