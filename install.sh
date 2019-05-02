@@ -125,7 +125,7 @@ server {
 	ssl_protocols TLSv1.2 TLSv1.3;
   	ssl_ciphers 'EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA512:EECDH+ECDSA+SHA256:ECDH+AESGCM:ECDH+AES256:DH+AESGCM:DH+AES256:!aNULL:!eNULL:!LOW:!RC4:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS';
 	ssl_prefer_server_ciphers on;
-    	"'add_header Strict-Transport-Security "max-age=31536000;";'"
+    	"'add_header Strict-Transport-Security "max-age=31536000; includeSubDomains"  always;'"
     	"'add_header Content-Security-Policy-Report-Only "default-src https:; script-src https: 'unsafe-eval' 'unsafe-inline'; style-src https: 'unsafe-inline'; img-src https: data:; font-src https: data:; report-uri /csp-report";'"
 	"'add_header X-Content-Type-Options "nosniff";'"
     	"'add_header X-Frame-Options "DENY";'"
