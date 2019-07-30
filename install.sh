@@ -128,7 +128,7 @@ server {
     	"'add_header Strict-Transport-Security "max-age=31536000; includeSubDomains"  always;'"
     	"'add_header Content-Security-Policy-Report-Only "default-src https:; script-src https: 'unsafe-eval' 'unsafe-inline'; style-src https: 'unsafe-inline'; img-src https: data:; font-src https: data:; report-uri /csp-report";'"
 	"'add_header X-Content-Type-Options "nosniff";'"
-    	"'add_header X-Frame-Options "DENY";'"
+    	"'#add_header X-Frame-Options "DENY";'"
     	"'add_header X-XSS-Protection "1; mode=block";'"
     	location /__cspreporting__ {
     	access_log /var/log/nginx/report-uri-csp.log;
