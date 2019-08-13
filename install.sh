@@ -100,6 +100,10 @@ echo -e "server {
     access_log /var/log/nginx/access.log;
     root /var/www/html/$domain;
     location ~ \.php$ {
+    	fastcgi_buffers 4 256k;
+	fastcgi_busy_buffers_size 256k;
+	fastcgi_temp_file_write_size 256k;
+	
         try_files "'$uri'" =404;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
         fastcgi_pass php:9000;
