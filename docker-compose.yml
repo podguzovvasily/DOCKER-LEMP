@@ -1,0 +1,72 @@
+version: '3.3'
+services:
+    nginx:
+      # используем последний стабильный образ nginx
+        image: nginx:1.17.8
+        # маршрутизируем порты
+        ports:
+            - "80:80"
+            - "443:443"
+        # монтируем директории, слева директории на основной машине, справа - куда они монтируются в контейнере
+        volumes:
+            - ./nginx/conf.d:/etc/nginx/conf.d
+            #- ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./www/html:/var/www/html
+            #- ./nginx/blockips.conf:/etc/nginx/blockips.conf
+            - ./nginx:/etc/nginx
+            - ./logs/nginx:/var/log/nginx
+            - ./letsencrypt:/etc/letsencrypt
+        # nginx должен общаться с php контейнером
+        depends_on:
+            - php
+        links:
+            - php
+    php:
+        # у нас свой образ для PHP, указываем путь к нему и говорим что его надо собрать
+        build: ./images/php
+        # этот образ будет общаться с mysql
+        links:
+            - mysql
+        # монтируем директорию с проектами
+        volumes:
+            - ./www/html:/var/www/html
+            #- ./php/conf.d/40-custom.ini:/usr/local/etc/php/conf.d/40-custom.ini
+            #- ./php/php.ini-development:/usr/local/etc/php/php.ini-development
+            #- ./php/php.ini-production:/usr/local/etc/php/php.ini-production
+    mysql:
+        image: mariadb:10.4
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./mysql/var/lib/mysql:/var/lib/mysql
+            - ./mysql/my.cnf:/etc/mysql/my.cnf
+            - ./logs/mysql:/var/log/mysql
+        # задаем пароль для root пользователя
+        environment:
+            MYSQL_ROOT_PASSWORD: 576EuOxWZbpewkhQlmnCTs
+            MYSQL_DATABASE: database
+            MYSQL_USER: database_user
+            MYSQL_PASSWORD: opuAkEPZ7WF3MrOfw6y5m8
+    pma:
+      # используем последний стабильный образ phpmyadmin
+        image: phpmyadmin/phpmyadmin
+        restart: always
+        links:
+            - mysql:mysql
+        ports:
+            - 8183:80
+        environment:
+            # прописываем название нашего MySQL хоста
+            PMA_HOST: mysql
+            MYSQL_USERNAME: root
+            MYSQL_ROOT_PASSWORD: 576EuOxWZbpewkhQlmnCTs
+    certbot:
+        container_name: certbot
+        image: certbot/certbot
+        links:
+            - nginx
+        volumes:
+            - ./letsencrypt:/etc/letsencrypt
+            - ./www/html:/var/www/html
+        command: ["renew"]
+        # docker-compose run certbot certonly --webroot -w /var/www/html -d domain.com -d www.domain.com
