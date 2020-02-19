@@ -27,7 +27,6 @@ services:
         # у нас свой образ для PHP, указываем путь к нему и говорим что его надо собрать
         build: ./images/php
         # этот образ будет общаться с mysql
-        #! name
         links:
             - mysql
         # монтируем директорию с проектами
@@ -38,8 +37,8 @@ services:
             #- ./php/php.ini-development:/usr/local/etc/php/php.ini-development
             #- ./php/php.ini-production:/usr/local/etc/php/php.ini-production
     mysql:
-        container_name: mariadb:10.4
-        image: mariadb:10.4
+        container_name: mariadb:10.5
+        image: mariadb:10.5
         ports:
             - "3306:3306"
         volumes:
