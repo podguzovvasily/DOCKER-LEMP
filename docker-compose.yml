@@ -1,7 +1,7 @@
 version: '3.3'
 services:
     nginx:
-        container_name: nginx:1.17.8
+        container_name: nginx1.17.8
       # используем последний стабильный образ nginx
         image: nginx:1.17.8
         # маршрутизируем порты
@@ -23,7 +23,7 @@ services:
         links:
             - php
     php:
-        container_name: php:7.4
+        container_name: php7.4
         # у нас свой образ для PHP, указываем путь к нему и говорим что его надо собрать
         build: ./images/php
         # этот образ будет общаться с mysql
@@ -37,7 +37,7 @@ services:
             #- ./php/php.ini-development:/usr/local/etc/php/php.ini-development
             #- ./php/php.ini-production:/usr/local/etc/php/php.ini-production
     mysql:
-        container_name: mariadb:10.5
+        container_name: mariadb10.5
         image: mariadb:10.5
         ports:
             - "3306:3306"
