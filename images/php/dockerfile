@@ -22,6 +22,8 @@ RUN apt-get update && apt-get install -y \
 		libmagickwand-dev --no-install-recommends \
     && pecl install imagick \
 	&& docker-php-ext-enable imagick \
+    && docker-php-ext-install exif \
+    && docker-php-ext-enable exif \
     && pecl install mcrypt-1.0.3 \
     && docker-php-ext-install -j$(nproc) mysqli pdo_mysql zip \
     && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
