@@ -1,9 +1,10 @@
 version: '3.3'
 services:
     nginx:
-        container_name: nginx1.17.8
+        container_name: nginx1.17.9
       # используем последний стабильный образ nginx
-        image: nginx:1.17.8
+        image: nginx:1.17.9
+        restart: always
         # маршрутизируем порты
         ports:
             - "80:80"
@@ -24,6 +25,7 @@ services:
             - php
     php:
         container_name: php7.4
+        restart: always
         # у нас свой образ для PHP, указываем путь к нему и говорим что его надо собрать
         build: ./images/php
         # этот образ будет общаться с mysql
@@ -37,6 +39,7 @@ services:
     mysql:
         container_name: mariadb10.5
         image: mariadb:10.5
+        restart: always
         ports:
             - "3306:3306"
         volumes:
