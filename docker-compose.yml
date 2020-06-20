@@ -35,7 +35,9 @@ services:
         volumes:
             - ./www/html:/var/www/html
             #! chown -R www-data:www-data www
-            - ./php/php.ini:/usr/local/etc/php/php.ini            
+            - ./php/php.ini:/usr/local/etc/php/php.ini
+            # для логирования PHP-FPM  в контейнере создаем файл  touch /var/log/fpm-php.www.log , задаем права  chown www-data:www-data /var/log/fpm-php.www.log
+            # и в файле глобальной конфигурации PHP-FPM (/usr/local/etc/php-fpm.d/docker.conf) указываем путь к нему (вместо ;error_log = /proc/self/fd/2 впишем error_log = /var/log/fpm-php.www.log)
     mysql:
         container_name: mariadb10.5
         image: mariadb:10.5
