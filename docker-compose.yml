@@ -27,6 +27,7 @@ services:
         container_name: php7.4
         restart: always
         # у нас свой образ для PHP, указываем путь к нему и говорим что его надо собрать.
+        #network_mode: 'host'       -       указываем если нам необходимо видеть хостовую сеть из контейнера
         build: ./images/php
         # этот образ будет общаться с mysql
         links:
