@@ -37,7 +37,10 @@ services:
             - ./www/html:/var/www/html
             #! chown -R www-data:www-data www
             - ./php/php.ini:/usr/local/etc/php/php.ini
-            # для логирования PHP-FPM  в контейнере создаем файл  touch /var/log/php74-fpm.log , задаем права  chown www-data:www-data /var/log/php74-fpm.log
+            - ./logs/php/php74fpm.log:/var/log/php74fpm.log
+            - ./php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+            - ./php/docker.conf:/usr/local/etc/php-fpm.d/docker.conf
+            # для логирования PHP-FPM  в контейнере создаем файл  touch /var/log/php74-fpm.log
             # и в файле глобальной конфигурации PHP-FPM (/usr/local/etc/php-fpm.d/docker.conf) указываем путь к нему (вместо ;error_log = /proc/self/fd/2 впишем error_log = /var/log/php74fpm.log)
     mysql:
         container_name: mariadb10.5
